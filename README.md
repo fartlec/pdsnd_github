@@ -5,7 +5,7 @@ project created on 04-21-2020
 bikeshare.py
 
 ### Description
-a simple script to dig into US Bikeshare Data, a database by a bikesharing company about their users' stats
+a comprehensive script to dig into US Bikeshare Data, a database by a bikesharing company about their users' stats
 
 ### Files used
 bikeshare.py (template)

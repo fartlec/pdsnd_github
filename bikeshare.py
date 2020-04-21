@@ -228,6 +228,11 @@ def rides_data(df):
 
 
 def raw_data(df):
+""" Ask user if he would like to see raw data too
+    raw data are displayed by 5 rows. then ask user to show 5 more rows
+    input : y, yes, yea, yep
+    return : 5 rows of raw data
+    """
     index=0
     user_input='y'
     while user_input in ['yes','y','yep','yea'] and index+5 < df.shape[0]:
@@ -236,6 +241,12 @@ def raw_data(df):
         index += 5    
     
 def main():
+  """ Ask user which data he is interested in among rides
+        users, time or raw data, shows them, then asks if he would
+        like to see more
+    input : r, u, t, raw
+    return : time, rides, user data or raw data
+    """
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
