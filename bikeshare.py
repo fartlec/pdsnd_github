@@ -7,6 +7,8 @@ CITY_DATA = { 'chicago': 'chicago.csv',
               'washington': 'washington.csv' }
 MONTH_DATA = ['january', 'february', 'march', 'april', 'may', 'june']
 DAY_DATA = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+NO_LIST = ['no', 'n']
+YES_LIST = ['yes' 'y', 'yep', 'yea']
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -16,10 +18,11 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hi there! Let\'s dive into US bikeshare datas \n')
+    
     # get user input for city (chicago, new york city, washington).
     city = input('Please enter a city among Chicago, New York City and Washington: ').lower()
     print()
-    if (city == 'new york') or (city == 'ny'):
+    if city in ['new york', 'ny']:
         city = 'new york city'
     elif city == 'dc':
         city = 'washington'
@@ -29,17 +32,19 @@ def get_filters():
          except :
             print('\nno input taken\n')
             break
+    
     # ask user if filter by month
     while True:
         filter_by_month = input('Would you like to filter by month? ').lower()
         print()
         
         # filter data for month: yes, no, check for valid answer
-        if (filter_by_month == 'yes') or (filter_by_month == 'y'):
+        if filter_by_month in YES_LIST:
             
             #get user input for month (all, january, february, ... , june)
             month = input('Please enter a month between January and June: ').lower()
             print()
+            
             # month not valid
             while month not in MONTH_DATA:
                 try:
@@ -48,10 +53,12 @@ def get_filters():
                     print('\nno input taken\n')
                     break
                     
+        
         # get data from all months
-        elif (filter_by_month == 'no') or (filter_by_month == 'n'):
+        elif filter_by_month in NO_LIST:
             month = 'all'
         else:
+            
             # wrong input, start again 
             print('Not a valid input, please retry')
             continue
@@ -64,7 +71,7 @@ def get_filters():
         print()
         
         # filter data for day: yes, no, check for valid answer 
-        if (filter_by_day == 'yes') or (filter_by_day == 'y'):
+        if filter_by_day in YES_LIST:
             
             # get user input for day of week (all, monday, tuesday, ... sunday)
             day = input('Please enter a day of the week: ').lower()
@@ -78,7 +85,7 @@ def get_filters():
                     break
        
         # get data from all days            
-        elif (filter_by_day == 'no') or (filter_by_day == 'n'):
+        elif filter_by_day in NO_LIST:
             day = 'all'
         else:
             
@@ -134,8 +141,6 @@ def load_data(city, month, day):
 def time_data(df):
     
     # calculates month in which bikes are most rented
-   
-   
     most_rented_month_n = df['month'].mode()[0]
     most_rented_month = MONTH_DATA[most_rented_month_n-1].title()
     
@@ -181,6 +186,7 @@ def users_data(df):
         early_year=int(df['Birth Year'].max())
         late_year=int(df['Birth Year'].min())
         print('The youngest user is born in {}, the eldest is born in {} \n'.format(early_year, late_year))
+        
         # birth year of people who uses bikesharing the most
         sort_years_most = birth_year_count.sort_values(ascending=False)
         birth_year_most = str(int(sort_years_most.index[0]))
@@ -235,7 +241,7 @@ def raw_data(df):
     """
     index=0
     user_input='y'
-    while user_input in ['yes','y','yep','yea'] and index+5 < df.shape[0]:
+    while user_input in YES_LIST and index+5 < df.shape[0]:
         user_input = input('Would you like to display 5 rows of raw data? ').lower()
         print(df.iloc[index:index+5])
         index += 5    
@@ -268,7 +274,7 @@ def main():
             break
         
         restart = input('\nWould you like to see more data (y/n)?').lower()
-        if restart != 'yes' and restart != 'y':
+        if restart not in YES_LIST:
             break
 
 if __name__ == "__main__":
