@@ -220,11 +220,12 @@ def rides_data(df):
     print('The shortest trip duration is of {} hours, {} minutes and {} seconds\n'.format(h, m, s))
     
     
-    #average trip duratio
+    #average trip duration
     avg_trip_dur = int(df['Trip Duration'].mean())
     m, s = divmod(avg_trip_dur, 60)
     h, m = divmod(m, 60)
     print('The average trip duration is of {} hours, {} minutes and {} seconds'.format(h, m, s))
+
 
 def raw_data(df):
     index=0
@@ -238,7 +239,6 @@ def main():
     while True:
         city, month, day = get_filters()
         df = load_data(city, month, day)
-        
         print('What data are you interested in?')
         choice = input('Please type r for rides, u for users, t for time or raw for raw data: ').lower()
         print()
