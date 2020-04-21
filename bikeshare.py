@@ -16,6 +16,7 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hi there! Let\'s dive into US bikeshare datas \n')
+    
     # get user input for city (chicago, new york city, washington).
     city = input('Please enter a city among Chicago, New York City and Washington: ').lower()
     print()
@@ -29,6 +30,7 @@ def get_filters():
          except :
             print('\nno input taken\n')
             break
+    
     # ask user if filter by month
     while True:
         filter_by_month = input('Would you like to filter by month? ').lower()
@@ -40,6 +42,7 @@ def get_filters():
             #get user input for month (all, january, february, ... , june)
             month = input('Please enter a month between January and June: ').lower()
             print()
+            
             # month not valid
             while month not in MONTH_DATA:
                 try:
@@ -48,10 +51,12 @@ def get_filters():
                     print('\nno input taken\n')
                     break
                     
+        
         # get data from all months
         elif (filter_by_month == 'no') or (filter_by_month == 'n'):
             month = 'all'
         else:
+            
             # wrong input, start again 
             print('Not a valid input, please retry')
             continue
@@ -134,8 +139,6 @@ def load_data(city, month, day):
 def time_data(df):
     
     # calculates month in which bikes are most rented
-   
-   
     most_rented_month_n = df['month'].mode()[0]
     most_rented_month = MONTH_DATA[most_rented_month_n-1].title()
     
@@ -181,6 +184,7 @@ def users_data(df):
         early_year=int(df['Birth Year'].max())
         late_year=int(df['Birth Year'].min())
         print('The youngest user is born in {}, the eldest is born in {} \n'.format(early_year, late_year))
+        
         # birth year of people who uses bikesharing the most
         sort_years_most = birth_year_count.sort_values(ascending=False)
         birth_year_most = str(int(sort_years_most.index[0]))
